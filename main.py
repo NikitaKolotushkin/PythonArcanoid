@@ -17,6 +17,10 @@ ball_rect = int(ball_radius * 2 ** 0.5)
 ball = pygame.Rect(rnd(ball_rect, WIDTH - ball_rect), HEIGHT // 2, ball_rect, ball_rect)
 dx, dy = 1, -1
 
+# BLOCKS
+block_list = [pygame.Rect(10 + 120 * i, 10 + 70 * j, 100, 50) for i in range(10) for j in range(4)]
+color_list = [(rnd(30, 256), rnd(30, 256), rnd(30, 256)) for i in range(10) for j in range(4)]
+
 pygame.init()
 
 game = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -31,6 +35,7 @@ while True:
     game.blit(img, (0, 0))
 
     # DRAWING
+    [pygame.draw.rect(game, color_list[color], block) for color, block in enumerate(block_list)]
     pygame.draw.rect(game, pygame.Color('darkblue'), platform)
     pygame.draw.circle(game, pygame.Color('white'), ball.center, ball_radius)
 

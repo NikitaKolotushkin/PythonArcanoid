@@ -27,6 +27,26 @@ game = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 img = pygame.image.load('img/bg.png').convert()
 
+# COLLISION DETECTER
+def detect_collision(dx, dy, ball, rect):
+    if dx > 0:
+        delta_x = ball.right - rect.left
+    else:
+        delta_x = rect.right - ball.left
+    if dy > 0:
+        delta_y = ball.bottom - rect.top
+    else:
+        delta_y = rect.bottom - ball.top
+
+    if abs(delta_x - delta_y) < 10:
+        dx, dy = -dx, -dy
+    elif delta_x > delta_y:
+        dy = -dy
+    elif delta_y > delta_x:
+        dx = -dx
+
+    return dx, dy
+
 # GAME LOOP
 while True:
     for event in pygame.event.get():
@@ -53,7 +73,26 @@ while True:
 
     # BALL PLATFORM COLLISION
     if ball.colliderect(platform) and dy > 0:
-        dy = -dy
+        dx, dy = detect_collision(dx, dy, ball, platform)
+
+    # BALL BLOCKS COLLISION
+    hit_index = ball.collidelist(block_list)
+    if hit_index != -1:
+        hit_rect = block_list.pop(hit_index)
+        hit_color = color_list.pop(hit_index)
+        dx, dy = detect_collision(dx, dy, ball, hit_rect)
+        # SPECIAL EFFECTS
+        hit_rect.inflate_ip(ball.width * 3, ball.height * 3)
+        pygame.draw.rect(game, hit_color, hit_rect)
+        fps += 2
+    
+    # WIN, GAME OVER
+    if ball.bottom > HEIGHT:
+        print("GAME OVER!")
+        exit()
+    elif not len(block_list):
+        print("WIN!")
+        exit()
 
     # CONTROL
     key = pygame.key.get_pressed()

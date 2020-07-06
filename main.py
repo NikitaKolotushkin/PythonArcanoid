@@ -81,6 +81,7 @@ while True:
         hit_rect = block_list.pop(hit_index)
         hit_color = color_list.pop(hit_index)
         dx, dy = detect_collision(dx, dy, ball, hit_rect)
+        
         # SPECIAL EFFECTS
         hit_rect.inflate_ip(ball.width * 3, ball.height * 3)
         pygame.draw.rect(game, hit_color, hit_rect)

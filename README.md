@@ -8,5 +8,5 @@ The main goal of the game is to destroy all the blocks with a ball.
 The rules are simple: the ball did not hit the platform, you lost. All blocks are destroyed, you win.
 
 ### Control
-+ **Left movement** - leftarrow
-+ **Right movement** - rightarrow
++ **Left movement** - leftarrow (→)
++ **Right movement** - rightarrow (←)

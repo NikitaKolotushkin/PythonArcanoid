@@ -36,7 +36,7 @@ while True:
 
     # DRAWING
     [pygame.draw.rect(game, color_list[color], block) for color, block in enumerate(block_list)]
-    pygame.draw.rect(game, pygame.Color('darkblue'), platform)
+    pygame.draw.rect(game, pygame.Color('darkviolet'), platform)
     pygame.draw.circle(game, pygame.Color('white'), ball.center, ball_radius)
 
     # BALL MOVEMENT
